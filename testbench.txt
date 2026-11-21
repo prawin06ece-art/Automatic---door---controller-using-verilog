@@ -1,0 +1,26 @@
+
+module tb_automatic_door; 
+  reg person; 
+  reg safety; 
+  wire door_open; 
+  
+  automatic_door_dataflow uut ( .person(person), .safety(safety), .door_open(door_open) );
+  
+  initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars(0,tb_automatic_door);
+  end
+  
+  initial begin
+    
+    $monitor("Time=%0t Person=%b Safety=%b Door_Open=%b", $time, person, safety, door_open);
+    
+    person = 0; safety = 0;
+    #10; person = 0; safety = 1; 
+    #10; person = 1; safety = 0; 
+    #10; person = 1; safety = 1;
+    #10; person = 0; safety = 0; 
+    #10; $finish;
+  end 
+
+endmodule

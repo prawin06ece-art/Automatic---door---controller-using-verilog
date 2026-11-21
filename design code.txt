@@ -1,0 +1,9 @@
+module automatic_door_dataflow (
+    input person,
+    input safety,
+    output door_open
+);
+
+assign door_open = person & safety;
+
+endmodule
